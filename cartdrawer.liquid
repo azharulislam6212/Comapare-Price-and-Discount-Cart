@@ -1,0 +1,26 @@
+
+
+	{% if item.variant.compare_at_price > item.final_price %}
+		<del class="line-compare-price">{{item.variant.compare_at_price | money }}</del>
+{%- endif -%}
+
+	{%- if item.variant.compare_at_price > item.final_price %} 
+				{%- assign savings = item.variant.compare_at_price | minus: item.final_price | times: 100.0 | divided_by: item.variant.compare_at_price | round | append: '%' -%}
+
+             {%- capture savings -%}{{ item.variant.compare_at_price | minus: item.final_price | money }}{%- endcapture -%}
+
+			<span class="save-percent-cart">  save {{savings}}</span>
+		 {% endif -%}
+
+
+  {%- liquid
+            assign variant = variant | default: product.selected_or_first_available_variant
+          -%}
+
+{%- if product.compare_at_price > product.price -%}
+            {%- if settings.discount_mode == 'percentage' -%}
+              {%- assign savings = variant.compare_at_price | minus: variant.price | times: 100.0 | divided_by: variant.compare_at_price | round | append: '%' -%}
+            {%- else -%}
+              {%- capture savings -%}{{ variant.compare_at_price | minus: variant.price | money }}{%- endcapture -%}
+            {%- endif -%}
+     {%- endif -%}
