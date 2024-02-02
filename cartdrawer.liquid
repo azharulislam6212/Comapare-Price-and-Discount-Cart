@@ -1,8 +1,11 @@
-
+/*cart*/
 
 	{% if item.variant.compare_at_price > item.final_price %}
 		<del class="line-compare-price">{{item.variant.compare_at_price | money }}</del>
 {%- endif -%}
+			{{ item.original_price | money }}
+
+
 
 	{%- if item.variant.compare_at_price > item.final_price %} 
 				{%- assign savings = item.variant.compare_at_price | minus: item.final_price | times: 100.0 | divided_by: item.variant.compare_at_price | round | append: '%' -%}
@@ -13,6 +16,10 @@
 		 {% endif -%}
 
 
+
+
+
+/*product*/
   {%- liquid
             assign variant = variant | default: product.selected_or_first_available_variant
           -%}
@@ -24,3 +31,12 @@
               {%- capture savings -%}{{ variant.compare_at_price | minus: variant.price | money }}{%- endcapture -%}
             {%- endif -%}
      {%- endif -%}
+
+
+
+%- if product.compare_at_price > product.price -%}
+
+{{product.compare_at_price }}
+     {%- endif -%}
+
+{{product.price}}
